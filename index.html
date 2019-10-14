@@ -1,0 +1,53 @@
+ <html>
+    <head>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <h1>Cloud Cafe</h1>
+
+        <div class="content">
+
+            <form id="add-cafe-form">
+                <input type="text" name='name' placeholder="Cafe name">
+                <input type="text" name='city' placeholder="Cafe City">
+                <button>Add Cafe</button>
+            </form>
+            
+            <ul id="cafe-list">
+                <form id="update-cafe-form" hidden>
+                    <input type="text" name='name' placeholder="Cafe name">
+                    <input type="text" name='city' placeholder="Cafe City">
+                    <button>Update Cafe</button>
+                </form></ul>
+            
+        </div>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAaaASw4_w1xKoVPtWJQA5MnuGSyvlfQJs",
+        authDomain: "ninjanet-tut.firebaseapp.com",
+        databaseURL: "https://ninjanet-tut.firebaseio.com",
+        projectId: "ninjanet-tut",
+        storageBucket: "ninjanet-tut.appspot.com",
+        messagingSenderId: "455655645603",
+        appId: "1:455655645603:web:16625f845600027c1dfa16",
+        measurementId: "G-15KKF1WB85"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    // db.settings({timestampsInSnapshots:true})
+    </script>
+        <script src="app.js"></script>
+    </body>              
+                                 
+</html>
