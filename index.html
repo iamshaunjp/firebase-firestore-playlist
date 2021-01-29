@@ -1,18 +1,46 @@
 <html>
     <head>
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
 
-        <h1>Cloud Cafe</h1>
+        <h1>Todo List</h1>
 
         <div class="content">
 
-            <form id="add-cafe-form"></form>
+            <form id="add-cafe-form">
+                <input type='text' name="name" placeholder="activity name" >
+                <input type='text' name="location" placeholder="location" >
+                <input type='number' name="difficulty" placeholder="difficulty" >
+                <button>Add Item</button>
+            </form>
 
             <ul id="cafe-list"></ul>
 
         </div>
+
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+              apiKey: "AIzaSyBtYlRUPygkH6xfwP9sB6E6-WKNEfHcHFQ",
+              authDomain: "todolist-firestore-d472d.firebaseapp.com",
+              databaseURL: "https://todolist-firestore-d472d-default-rtdb.europe-west1.firebasedatabase.app",
+              projectId: "todolist-firestore-d472d",
+              storageBucket: "todolist-firestore-d472d.appspot.com",
+              messagingSenderId: "825749797932",
+              appId: "1:825749797932:web:66acbae4525aba5495a589",
+              measurementId: "G-39TJPX3VKG"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            const dataBase = firebase.firestore();
+            dataBase.settings({ timestampsInSnapshots: true });
+
+        </script>
 
         <script src="app.js"></script>
     </body>

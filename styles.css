@@ -1,5 +1,5 @@
 body{
-    background: #eab0dc;
+    background: #3485ff;
     font-family: ubuntu;
 }
 
@@ -32,7 +32,7 @@ li{
     color: #555;
     position: relative;
     border-bottom: 1px solid #e6e6e6;
-    height: 46px;
+    height: 80px;
 }
 
 li:nth-child(even){
