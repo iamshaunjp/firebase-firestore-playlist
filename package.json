@@ -1,0 +1,22 @@
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "Trying firebase",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasvi-sood/firebase-firestore-playlist.git"
+  },
+  "author": "Vasvi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vasvi-sood/firebase-firestore-playlist/issues"
+  },
+  "homepage": "https://github.com/vasvi-sood/firebase-firestore-playlist#readme",
+  "dependencies": {
+    "firebase": "^9.1.3"
+  }
+}
