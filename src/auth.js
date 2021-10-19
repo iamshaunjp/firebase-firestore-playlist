@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
-import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc,query, where ,orderBy,limit } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc,query, where ,orderBy,limit,onSnapshot } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
 // import {getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,18 +19,20 @@ const firebaseConfig = {
   measurementId: "G-BSFTB5JHZY"
 };
 let form=document.getElementById("cafe_form");
+let cafe_list=document.getElementById("cafe-list");
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db=getFirestore(app);
 // console.log(db); //db contains the entire database
+//does not work in real time
 async function printList()
 {
   const coll = collection(db, 'Cafes');
   const documents = await getDocs(coll);
   const List = documents.docs.map(doc => doc.data());
   const key = documents.docs.map(doc => doc.id)
-  let cafe_list=document.getElementById("cafe-list");
+ 
   console.log(typeof(documents.docs),documents.docs);
   for(var i in List)
   {
@@ -53,8 +55,26 @@ async function printList()
 
   
 }
-printList();
+// printList();
 
+function addList(doc)
+{
+  var li = document.createElement("li");
+  li.setAttribute('data-id',doc.id);
+  li.appendChild(document.createTextNode(doc.data().Name+"  "+doc.data().Rating+" "));
+  var cross=document.createElement("button");
+  cross.className="cross";
+   cross.appendChild(document.createTextNode("X"));
+   li.appendChild(cross);
+ cafe_list.appendChild(li);
+
+//  adding event listeners for delete
+  cross.addEventListener("click",(e)=>{
+    let id=e.target.parentElement.getAttribute("data-id");
+    console.log(id);
+    deleteDocument(id);
+  })
+}
 async function writeData(name, rating) {
   
 try {
@@ -87,6 +107,7 @@ async function deleteDocument(id)
 
   await deleteDoc(doc(db, "Cafes", id));
 console.log("delete done");
+
 }
 
 async function queryName(Name)
@@ -129,8 +150,26 @@ async function OrderingByLimit(l)
     console.log(doc.id, " => ", doc.data());
   });
 }
-OrderingByLimit(3);
+// OrderingByLimit(3);
 
 // Ordering();
 // queryName("");
 // queryRating(6);
+//listening for changes 
+const q = query(collection(db, "Cafes"));
+const unsubscribe = onSnapshot(q, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+        console.log("New cafe: ", change.doc.data());
+        addList(change.doc);
+    }
+    if (change.type === "modified") {
+        console.log("Modified : ", change.doc.data());
+    }
+    if (change.type === "removed") {
+        console.log("Removed : ", change.doc.data());
+        let li=cafe_list.querySelector('[data-id='+change.doc.id+']');
+        cafe_list.removeChild(li);
+    }
+  });
+});
