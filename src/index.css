@@ -9,3 +9,6 @@ body {
   transition: 0.3s;
   width: 50%;
 }
+.cross {
+  color: red;
+}
