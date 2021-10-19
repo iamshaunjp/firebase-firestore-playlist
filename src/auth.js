@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
-import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc,query, where ,orderBy,limit,onSnapshot } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, doc, deleteDoc,query, where ,orderBy,limit,onSnapshot,updateDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
 // import {getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,7 +32,6 @@ async function printList()
   const documents = await getDocs(coll);
   const List = documents.docs.map(doc => doc.data());
   const key = documents.docs.map(doc => doc.id)
- 
   console.log(typeof(documents.docs),documents.docs);
   for(var i in List)
   {
@@ -66,6 +65,11 @@ function addList(doc)
   cross.className="cross";
    cross.appendChild(document.createTextNode("X"));
    li.appendChild(cross);
+   var edit=document.createElement("button");
+  edit.className="edit";
+   edit.appendChild(document.createTextNode("Edit"));
+   
+   li.appendChild(edit);
  cafe_list.appendChild(li);
 
 //  adding event listeners for delete
@@ -173,3 +177,13 @@ const unsubscribe = onSnapshot(q, (snapshot) => {
     }
   });
 });
+
+async function UpdateData(id,Name,Rating) {
+  await updateDoc(doc(db, "Cafes", id), {
+    // Name: Name,
+    Rating: Rating,
+  });
+  
+}
+
+UpdateData("0XinUNj9geNVXiuL59Vg","Best Onessss","3.8");
